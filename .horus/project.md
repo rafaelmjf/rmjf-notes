@@ -1,13 +1,14 @@
 ---
 project: rmjf-notes
-status: active
+status: planning
 current_focus: "Describe the immediate focus here."
-last_updated: 2026-06-24
+last_updated: 2026-06-25
 ---
 
 # rmjf-notes
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+One-paragraph description of what this project is. If the repo already has a
+README or status doc, distill the essentials here (see `.horus/README.md`).
 
 ## Current Shape
 
@@ -16,5 +17,3 @@ What the project looks like right now.
 ## Boundaries
 
 What is intentionally out of scope.
-
-_Seeded by Horus from: `README.md`, `CLAUDE.md`, `AGENTS.md`._
