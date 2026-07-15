@@ -1,0 +1,6 @@
+# Build + dependency artifacts (never committed; CI rebuilds and Pages hosts public/)
+node_modules/
+public/
+.quartz/
+**/.quartz-cache/
+.DS_Store
