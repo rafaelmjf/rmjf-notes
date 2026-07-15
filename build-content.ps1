@@ -2,15 +2,27 @@
 # Selects notes flagged `publish: true`, follows their [[link]] + ![[embed]] closure
 # (pulling linked notes and referenced images, skipping heavy .pbix binaries),
 # files notes into per-collection folders, and generates a gallery index per folder.
+#
+# Paths are parameterized (no machine-specific hard-coding). The vault is now the
+# `rmjf-vault` Git repo; point -Vault at a clone of it, or set $env:RMJF_VAULT_PATH.
+# Defaults: vault = a sibling `../rmjf-vault` checkout; project = this script's folder.
+#   pwsh ./build-content.ps1 -Vault /path/to/rmjf-vault
+param(
+  [string]$Vault = $(if ($env:RMJF_VAULT_PATH) { $env:RMJF_VAULT_PATH } else { Join-Path $PSScriptRoot ".." "rmjf-vault" }),
+  [string]$Proj  = $PSScriptRoot
+)
 
 $ErrorActionPreference = "Stop"
 $S = [char]0xA7   # the section sign, built here to avoid source-encoding issues
 
-$vault     = "G:\My Drive\AI\AI_PKM"
-$proj      = "C:\Users\Rafa\quartz-pkm"
+$vault     = $Vault
+$proj      = $Proj
 $content   = Join-Path $proj "content"
 $notesDir  = Join-Path $vault "Notes"
 $assetsDir = Join-Path $vault "Assets"
+if (-not (Test-Path -LiteralPath $notesDir)) {
+  throw "Vault Notes/ not found at '$notesDir'. Pass -Vault <path-to-rmjf-vault clone> or set RMJF_VAULT_PATH."
+}
 $enc = New-Object System.Text.UTF8Encoding($false)
 
 function Get-FM($text, $key) {
